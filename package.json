@@ -4,6 +4,9 @@
   "description": "[![Actions Status](https://github.com/HelgiMagic/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/HelgiMagic/frontend-project-12/actions)",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=18.18.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx start-server -s ./frontend/build"
