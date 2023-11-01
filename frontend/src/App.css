@@ -2,7 +2,11 @@
   background-color: rgba(248,249,250);
 }
 
-.login__container {
+* {
+  box-sizing: border-box;
+}
+
+.login__container, .chat__container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +67,47 @@
 
 .registration p {
   margin: 0;
+}
+
+.chat {
+  display: flex;
+  width: 1320px;
+  height: 90%;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.channels-list {
+  height: 100%;
+}
+
+.right-panel {
+  background-color: white;
+  flex-grow: 9;
+}
+
+.messages {
+  flex-grow: 3000;
+  background-color: white;
+  overflow: auto;
+}
+
+.right-panel__input {
+  padding: 16px 48px;
+  display: flex;
+  background-color: white;
+}
+
+.right-panel__input form {
+  width: 100%;
+}
+
+.right-panel__input {
+  flex-grow: 1;
 }
 
 @media (max-width: 1400px) {

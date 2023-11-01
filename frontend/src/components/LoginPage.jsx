@@ -69,7 +69,7 @@ const LoginPage = () => {
                     <div>{errors.password}</div>
                   ) : null}
                   {error}
-                  <button type="submit" className="btn btn-primary btn-outline">
+                  <button type="submit" className="btn btn-outline-primary">
                     Войти
                   </button>
                 </Form>
