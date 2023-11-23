@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 
@@ -34,7 +35,8 @@ const LoginPage = () => {
       window.location.href = '/';
     } catch (e) {
       console.log(e);
-      setError(<div>{t('invalidName')}</div>);
+      if (e.message === 'Network Error') toast.error(t('networkError'));
+      else setError(<div>{t('invalidName')}</div>);
     }
   };
 

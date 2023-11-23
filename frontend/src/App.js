@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 import LoginPage from './components/LoginPage';
 import MainPage from './components/MainPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -13,6 +14,7 @@ import { addMessage } from './slices/messagesSlice';
 import { addChannel } from './slices/channelsSlice';
 import socket from './socketStarter';
 import './i18next.js';
+import 'react-toastify/dist/ReactToastify.css';
 
 const setToken = (value) => localStorage.setItem('loginToken', value);
 
@@ -77,6 +79,7 @@ const App = () => (
       </div>
     </nav>
     <SocketWrapper />
+    <ToastContainer />
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />

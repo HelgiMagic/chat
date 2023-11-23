@@ -1,17 +1,20 @@
+import { toast } from 'react-toastify';
 import socket from './socketStarter';
 
-export const sendMessage = (body, channelId, username) => {
+export const sendMessage = (body, channelId, username, setInput, t) => {
   socket
     .timeout(5000)
     .emit('newMessage', { body, channelId, username }, (err) => {
-      if (err) {
-        console.log('123 error!!!!');
-      }
+      if (!err) setInput('');
+      else toast.error(t('networkError'));
     });
 };
 
-export const createChannel = (name) => {
-  socket.timeout(5000).emit('newChannel', { name });
+export const createChannel = (name, t) => {
+  socket.timeout(5000).emit('newChannel', { name }, (err) => {
+    if (!err) toast.success(t('channelCreated'));
+    else toast.error(t('networkError'));
+  });
 };
 
 export const removeChannel = (id) => {

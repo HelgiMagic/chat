@@ -17,7 +17,7 @@ const MainPage = () => {
   const dispatch = useDispatch();
 
   const handleAddChannel = () => {
-    createChannel('proverka123');
+    createChannel('proverka123', t);
   };
 
   if (!token) window.location.href = '/login';

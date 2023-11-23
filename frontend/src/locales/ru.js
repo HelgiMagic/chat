@@ -16,5 +16,7 @@ export default {
     unknownError: 'Непредвиденная ошибка',
     passwordConfirmation: 'Подтверждение пароля',
     exit: 'Выйти',
+    channelCreated: 'Канал создан',
+    networkError: 'Ошибка сети',
   },
 };

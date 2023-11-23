@@ -14,8 +14,7 @@ const ChatInput = ({ username }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     console.log('message sending');
-    sendMessage(value, activeChannel, username);
-    setValue('');
+    sendMessage(value, activeChannel, username, setValue, t);
   };
 
   return (
