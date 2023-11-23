@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import { sendMessage } from '../socketWrapper';
 
 const ChatInput = ({ username }) => {
@@ -16,6 +17,12 @@ const ChatInput = ({ username }) => {
     console.log('message sending');
     sendMessage(value, activeChannel, username, setValue, t);
   };
+
+  const rus = filter.getDictionary('ru');
+  const eng = filter.getDictionary('eng');
+  filter.addDictionary('goyda', [...rus, ...eng]);
+  filter.loadDictionary('goyda');
+  console.log(filter.clean('хуй and penis'));
 
   return (
     <div className="right-panel__input">
