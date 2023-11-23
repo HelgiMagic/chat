@@ -4,7 +4,7 @@ import routes from '../routes';
 
 const initialState = {
   list: [{
-    body: 'huy', id: 1, channelId: 1, username: 'admni',
+    body: 'proverka', id: 1, channelId: 1, username: 'admin',
   }],
 };
 

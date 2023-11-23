@@ -41,7 +41,7 @@ const LoginPage = () => {
       <div className="form__container">
         <div className="form__main p-5">
           <div className="left-column">
-            <img src="mountainman.jpg" alt="mountain man" />
+            <img src="mountainman.jpg" alt="mountain man" className="rounded-circle" />
           </div>
           <div className="right-column">
             <h1 className="text-center">Войти</h1>

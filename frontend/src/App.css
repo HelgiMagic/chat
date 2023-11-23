@@ -6,11 +6,15 @@
   box-sizing: border-box;
 }
 
+.container {
+  height: 4vh;
+  min-height: 48px;
+}
 .login__container, .chat__container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 93vh;
 }
 
 .form__container {
@@ -78,7 +82,7 @@
 .left-panel {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: 16.66%;
 }
 
 .channels-list {
@@ -125,5 +129,9 @@
 @media (max-width: 500px) {
   .form__container {
     width: 90%;
+  }
+
+  .left-panel {
+    width: 33.3%;
   }
 }

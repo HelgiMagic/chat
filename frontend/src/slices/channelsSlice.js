@@ -4,7 +4,7 @@ import routes from '../routes';
 
 const initialState = {
   list: [],
-  active: 0,
+  active: 1,
 };
 
 // export const addChannel = createAsyncThunk(

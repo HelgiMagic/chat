@@ -1,8 +1,9 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 export default createContext({
-    token: '',
-    setToken: () => {},
-    getToken: () => {},
+  token: '',
+  setToken: () => {},
+  getToken: () => {},
+  username: '',
+  setUsername: () => {},
 });
-  
