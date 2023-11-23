@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Message from './Message';
 
 const Messages = () => {
+  const { t } = useTranslation();
   const { list } = useSelector((state) => state.messages);
   const { active, list: channelsList } = useSelector((state) => state.channels);
 
@@ -27,7 +29,7 @@ const Messages = () => {
         <span className="text-muted">
           {activeMessages.length}
           {' '}
-          сообщение
+          {t('message')}
         </span>
       </div>
       <div className="messages px-5">

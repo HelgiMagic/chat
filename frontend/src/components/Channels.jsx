@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Channel from './Channel';
 
 const Channels = () => {
-  const { list, active } = useSelector((state) => state.channels);
+  const { list } = useSelector((state) => state.channels);
   const channels = list.map(({ id, name, removable }) => (
     <Channel key={id} id={id} removable={removable}>
       {name}

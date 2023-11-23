@@ -1,8 +1,20 @@
 export default {
   translation: {
     enterMessage: 'Введите сообщение...',
-    notAUrl: 'not a url',
-    submitButton: 'add',
-    rssLink: 'Линк рсс тест',
+    delete: 'Удалить',
+    rename: 'Переименовать',
+    invalidName: 'Неверные имя пользователя или пароль',
+    enter: 'Войти',
+    yourName: 'Ваш ник',
+    yourPassword: 'Ваш пароль',
+    noAccount: 'Нет аккаунта?',
+    register: 'Зарегистрироваться',
+    registration: 'Регистрация',
+    channels: 'Каналы',
+    message: 'сообщение',
+    alreadyExist: 'Пользователь с таким ником уже существует',
+    unknownError: 'Непредвиденная ошибка',
+    passwordConfirmation: 'Подтверждение пароля',
+    exit: 'Выйти',
   },
 };

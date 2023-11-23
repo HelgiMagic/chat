@@ -2,6 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 
@@ -11,7 +12,8 @@ const validationSchema = yup.object({
 });
 
 const LoginPage = () => {
-  const { token, setToken, getToken } = useContext(LoginContext);
+  const { t } = useTranslation();
+  const { token, setToken } = useContext(LoginContext);
   const [error, setError] = useState(null);
 
   console.log(token);
@@ -32,7 +34,7 @@ const LoginPage = () => {
       window.location.href = '/';
     } catch (e) {
       console.log(e);
-      setError(<div>Неверные имя пользователя или пароль</div>);
+      setError(<div>{t('invalidName')}</div>);
     }
   };
 
@@ -44,7 +46,7 @@ const LoginPage = () => {
             <img src="mountainman.jpg" alt="mountain man" className="rounded-circle" />
           </div>
           <div className="right-column">
-            <h1 className="text-center">Войти</h1>
+            <h1 className="text-center">{t('enter')}</h1>
             <Formik
               initialValues={initValues}
               validationSchema={validationSchema}
@@ -54,7 +56,7 @@ const LoginPage = () => {
                 <Form className="login__form">
                   <Field
                     name="login"
-                    placeholder="Ваш ник"
+                    placeholder={t('yourName')}
                     className="form-control"
                   />
                   {errors.login && touched.login ? (
@@ -62,7 +64,7 @@ const LoginPage = () => {
                   ) : null}
                   <Field
                     name="password"
-                    placeholder="Ваш пароль"
+                    placeholder={t('yourPassword')}
                     className="form-control"
                   />
                   {errors.password && touched.password ? (
@@ -70,7 +72,7 @@ const LoginPage = () => {
                   ) : null}
                   {error}
                   <button type="submit" className="btn btn-outline-primary">
-                    Войти
+                    {t('enter')}
                   </button>
                 </Form>
               )}
@@ -79,9 +81,9 @@ const LoginPage = () => {
         </div>
         <div className="registration p-4">
           <div className="text-center">
-            <span>Нет аккаунта?</span>
+            <span>{t('noAccount')}</span>
             {' '}
-            <a href="/signup">Регистрация</a>
+            <a href="/signup">{t('registration')}</a>
           </div>
         </div>
       </div>

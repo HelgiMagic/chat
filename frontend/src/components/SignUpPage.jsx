@@ -2,6 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 
@@ -15,6 +16,7 @@ const validationSchema = yup.object({
 });
 
 const SignUpPage = () => {
+  const { t } = useTranslation();
   const { token, setToken, setUsername } = useContext(LoginContext);
   const [error, setError] = useState(null);
 
@@ -37,8 +39,8 @@ const SignUpPage = () => {
       window.location.href = '/';
     } catch (e) {
       console.log(e);
-      if (e.response.status === 409) setError(<div>Пользователь с таким ником уже существует</div>);
-      else setError(<div>Непредвиденная ошибка</div>);
+      if (e.response.status === 409) setError(<div>{t('alreadyExist')}</div>);
+      else setError(<div>{t('unknownError')}</div>);
     }
   };
 
@@ -50,7 +52,7 @@ const SignUpPage = () => {
             <img src="happyman.jpg" alt="mountain man" className="rounded-circle" />
           </div>
           <div className="right-column">
-            <h1 className="text-center">Регистрация</h1>
+            <h1 className="text-center">{t('registration')}</h1>
             <Formik
               initialValues={initValues}
               validationSchema={validationSchema}
@@ -60,7 +62,7 @@ const SignUpPage = () => {
                 <Form className="login__form">
                   <Field
                     name="login"
-                    placeholder="Ваш ник"
+                    placeholder={t('yourName')}
                     className="form-control"
                   />
                   {errors.login && touched.login ? (
@@ -68,7 +70,7 @@ const SignUpPage = () => {
                   ) : null}
                   <Field
                     name="password"
-                    placeholder="Ваш пароль"
+                    placeholder={t('yourPassword')}
                     className="form-control"
                   />
                   {errors.password && touched.password ? (
@@ -76,7 +78,7 @@ const SignUpPage = () => {
                   ) : null}
                   <Field
                     name="confirmPassword"
-                    placeholder="Подтверждение пароля"
+                    placeholder={t('passwordConfirmation')}
                     className="form-control"
                   />
                   {errors.confirmPassword && touched.confirmPassword ? (
@@ -84,7 +86,7 @@ const SignUpPage = () => {
                   ) : null}
                   {error}
                   <button type="submit" className="btn btn-outline-primary">
-                    Зарегистрироваться
+                    {t('register')}
                   </button>
                 </Form>
               )}

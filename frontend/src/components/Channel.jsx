@@ -5,9 +5,12 @@ import cn from 'classnames';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { useTranslation } from 'react-i18next';
 import { setActive } from '../slices/channelsSlice';
 
 const Channel = ({ children, id, removable }) => {
+  const { t } = useTranslation();
+
   const activeChannel = useSelector((state) => state.channels.active);
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -42,8 +45,8 @@ const Channel = ({ children, id, removable }) => {
         <Dropdown.Toggle split variant={variant} id="dropdown-split-basic" className="flex-grow-0" />
 
         <Dropdown.Menu>
-          <Dropdown.Item>Удалить</Dropdown.Item>
-          <Dropdown.Item>Переименовать</Dropdown.Item>
+          <Dropdown.Item>{t('delete')}</Dropdown.Item>
+          <Dropdown.Item>{t('rename')}</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </li>

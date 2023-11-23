@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 import Channels from './Channels';
@@ -11,6 +12,7 @@ import ChatInput from './ChatInput';
 import { createChannel } from '../socketWrapper';
 
 const MainPage = () => {
+  const { t } = useTranslation();
   const { token, username } = useContext(LoginContext);
   const dispatch = useDispatch();
 
@@ -43,7 +45,7 @@ const MainPage = () => {
       <div className="chat rounded shadow">
         <div className="left-panel bg-light border-end">
           <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-            <b>Каналы</b>
+            <b>{t('channels')}</b>
             <button
               type="button"
               className="p-0 text-primary btn btn-group-vertical"

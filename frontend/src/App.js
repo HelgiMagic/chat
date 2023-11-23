@@ -2,6 +2,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import LoginPage from './components/LoginPage';
 import MainPage from './components/MainPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -22,11 +23,17 @@ const handleClick = () => {
 
 const token = localStorage.getItem('loginToken');
 
-const leaveButton = token.length < 1 ? null : (
-  <button type="button" className="btn btn-primary" onClick={handleClick}>
-    Выйти
-  </button>
-);
+const ExitButton = () => {
+  const { t } = useTranslation('');
+
+  if (token.length < 1) return null;
+
+  return (
+    <button type="button" className="btn btn-primary" onClick={handleClick}>
+      {t('exit')}
+    </button>
+  );
+};
 
 const LoginProvider = ({ children }) => {
   const getToken = () => localStorage.getItem('loginToken');
@@ -66,7 +73,7 @@ const App = () => (
         <a className="navbar-brand" href="/">
           Hexlet Chat
         </a>
-        {leaveButton}
+        <ExitButton />
       </div>
     </nav>
     <SocketWrapper />
