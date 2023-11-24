@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
+import { Provider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
 import LoginPage from './components/LoginPage';
 import MainPage from './components/MainPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -68,27 +69,36 @@ const SocketWrapper = () => {
   return null;
 };
 
+const rollbarConfig = {
+  accessToken: 'a0701e36619448ba800781eb78b5f6d8',
+  environment: 'testenv',
+};
+
 const App = () => (
-  <LoginProvider>
-    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-      <div className="container">
-        <a className="navbar-brand" href="/">
-          Hexlet Chat
-        </a>
-        <ExitButton />
-      </div>
-    </nav>
-    <SocketWrapper />
-    <ToastContainer />
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="signup" element={<SignUpPage />} />
-        <Route path="404" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
-  </LoginProvider>
+  <Provider config={rollbarConfig}>
+    <ErrorBoundary>
+      <LoginProvider>
+        <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+          <div className="container">
+            <a className="navbar-brand" href="/">
+              Hexlet Chat
+            </a>
+            <ExitButton />
+          </div>
+        </nav>
+        <SocketWrapper />
+        <ToastContainer />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignUpPage />} />
+            <Route path="404" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </LoginProvider>
+    </ErrorBoundary>
+  </Provider>
 );
 
 export default App;

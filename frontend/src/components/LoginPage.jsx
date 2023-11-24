@@ -14,7 +14,7 @@ const validationSchema = yup.object({
 
 const LoginPage = () => {
   const { t } = useTranslation();
-  const { token, setToken } = useContext(LoginContext);
+  const { token, setToken, setUsername } = useContext(LoginContext);
   const [error, setError] = useState(null);
 
   console.log(token);
@@ -32,6 +32,7 @@ const LoginPage = () => {
       console.log(data);
       setError(null);
       setToken(data.token);
+      setUsername(login);
       window.location.href = '/';
     } catch (e) {
       console.log(e);
