@@ -32,4 +32,4 @@ Enter https://chat-mw12.onrender.com/ in the address bar of your browser. Enjoy!
 Creating different users, two basic channels: general and random. Creating and deleting channels. Convenient online correspondence.
 
 ### Examples of usage
-![image][.github\example.png]
+![image](https://github.com/HelgiMagic/frontend-project-12/assets/113669521/1cd76b09-726d-4c35-8afb-f0f255845762)
