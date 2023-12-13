@@ -37,7 +37,7 @@ const LoginPage = () => {
     } catch (e) {
       console.log(e);
       if (e.message === 'Network Error') toast.error(t('networkError'));
-      else setError(<div>{t('invalidName')}</div>);
+      else setError(<div className="invalid-feedback">{t('invalidName')}</div>);
     }
   };
 
@@ -63,7 +63,7 @@ const LoginPage = () => {
                     className="form-control"
                   />
                   {errors.login && touched.login ? (
-                    <div>{errors.login}</div>
+                    <div className="invalid-feedback">{errors.login}</div>
                   ) : null}
                   <Field
                     name="password"
@@ -71,7 +71,7 @@ const LoginPage = () => {
                     className="form-control"
                   />
                   {errors.password && touched.password ? (
-                    <div>{errors.password}</div>
+                    <div className="invalid-feedback">{errors.password}</div>
                   ) : null}
                   {error}
                   <button type="submit" className="btn btn-outline-primary">

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { useTranslation } from 'react-i18next';
 import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
@@ -18,7 +19,7 @@ const Add = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('huy');
+
     createChannel(input, t);
     handleClose();
   };
@@ -26,7 +27,7 @@ const Add = () => {
   return (
     <Modal show centered>
       <Modal.Header closeButton onHide={handleClose}>
-        <Modal.Title>Add</Modal.Title>
+        <Modal.Title>{t('addChannel')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -36,13 +37,14 @@ const Add = () => {
             value={input}
             onInput={handleInput}
             required
+            autoFocus
           />
           <div className="d-flex justify-content-end">
             <button type="button" className="me-2 btn btn-secondary" onClick={handleClose}>
-              Отменить
+              {t('cancel')}
             </button>
             <button type="submit" className="btn btn-primary">
-              Отправить
+              {t('send')}
             </button>
           </div>
         </form>

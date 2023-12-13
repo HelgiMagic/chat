@@ -17,10 +17,16 @@ export const createChannel = (name, t) => {
   });
 };
 
-export const removeChannel = (id) => {
-  socket.timeout(5000).emit('removeChannel', { id });
+export const removeChannel = (id, t) => {
+  socket.timeout(5000).emit('removeChannel', { id }, (err) => {
+    if (!err) toast.success(t('channelRemoved'));
+    else toast.error(t('networkError'));
+  });
 };
 
-export const renameChannel = (id, name) => {
-  socket.timeout(5000).emit('renameChannel', { id, name });
+export const renameChannel = (id, name, t) => {
+  socket.timeout(5000).emit('renameChannel', { id, name }, (err) => {
+    if (!err) toast.success(t('channelRenamed'));
+    else toast.error(t('networkError'));
+  });
 };

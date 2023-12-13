@@ -17,6 +17,13 @@ export default {
     passwordConfirmation: 'Подтверждение пароля',
     exit: 'Выйти',
     channelCreated: 'Канал создан',
+    channelDeleted: 'Канал удалён',
+    channelRenamed: 'Канал переименован',
     networkError: 'Ошибка сети',
+    renameChannel: 'Переименовать канал',
+    addChannel: 'Добавить канал',
+    deleteChannel: 'Удалить канал',
+    cancel: 'Отменить',
+    send: 'Отправить',
   },
 };

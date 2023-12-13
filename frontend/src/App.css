@@ -114,6 +114,10 @@
   flex-grow: 1;
 }
 
+.invalid-feedback {
+  display: block !important;
+}
+
 @media (max-width: 1400px) {
   .form__container {
     width: 66%;

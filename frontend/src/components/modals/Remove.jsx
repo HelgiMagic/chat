@@ -15,7 +15,7 @@ const Remove = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log('huy');
+
     removeChannel(activeElementId, t);
     handleClose();
   };
@@ -23,21 +23,21 @@ const Remove = () => {
   return (
     <Modal show centered>
       <Modal.Header closeButton onHide={handleClose}>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('deleteChannel')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <p className="lead">Уверены?</p>
         <div className="d-flex justify-content-end">
           <button type="button" className="me-2 btn btn-secondary" onClick={handleClose}>
-            Отменить
+            {t('cancel')}
           </button>
           <button
             type="button"
             className="btn btn-danger"
             onClick={handleClick}
           >
-            Удалить
+            {t('delete')}
           </button>
         </div>
       </Modal.Body>
