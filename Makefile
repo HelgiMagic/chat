@@ -1,2 +1,2 @@
 install:
-	npm i
+	npm ci
