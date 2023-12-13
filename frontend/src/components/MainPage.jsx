@@ -9,7 +9,7 @@ import { setChannels, setActive } from '../slices/channelsSlice';
 import Messages from './Messages';
 import { setMessages } from '../slices/messagesSlice';
 import ChatInput from './ChatInput';
-import { createChannel } from '../socketWrapper';
+import { setActiveModal } from '../slices/modalSlice';
 
 const MainPage = () => {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ const MainPage = () => {
   const dispatch = useDispatch();
 
   const handleAddChannel = () => {
-    createChannel('proverka123', t);
+    dispatch(setActiveModal('add'));
   };
 
   if (!token) window.location.href = '/login';

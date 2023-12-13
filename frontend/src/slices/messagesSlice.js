@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import routes from '../routes';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   list: [{
@@ -18,12 +17,6 @@ const messagesSlice = createSlice({
     addMessage(state, action) {
       state.list.push(action.payload);
     },
-  },
-  extraReducers: (builder) => {
-    // builder
-    //   .addCase(fetchTasks.fulfilled, tasksAdapter.addMany)
-    //   .addCase(addTask.fulfilled, tasksAdapter.addOne)
-    //   .addCase(removeTask.fulfilled, tasksAdapter.removeOne);
   },
 });
 

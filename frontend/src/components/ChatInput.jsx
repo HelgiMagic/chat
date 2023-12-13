@@ -22,7 +22,6 @@ const ChatInput = ({ username }) => {
   const eng = filter.getDictionary('eng');
   filter.addDictionary('goyda', [...rus, ...eng]);
   filter.loadDictionary('goyda');
-  console.log(filter.clean('хуй and penis'));
 
   return (
     <div className="right-panel__input">

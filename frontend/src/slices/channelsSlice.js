@@ -1,19 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import routes from '../routes';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   list: [],
   active: 1,
 };
-
-// export const addChannel = createAsyncThunk(
-//   'tasks/addTask',
-//   async (name) => {
-//     const response = await axios.post(routes.tasksPath(), { name });
-//     return response.data;
-//   },
-// );
 
 const channelsSlice = createSlice({
   name: 'comments',
@@ -28,14 +19,21 @@ const channelsSlice = createSlice({
     setActive(state, action) {
       state.active = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    // builder
-    //   .addCase(fetchTasks.fulfilled, tasksAdapter.addMany)
-    //   .addCase(addTask.fulfilled, tasksAdapter.addOne)
-    //   .addCase(removeTask.fulfilled, tasksAdapter.removeOne);
+    renameChannel(state, action) {
+      console.log(action.payload);
+      const { id, name } = action.payload;
+      const elem = state.list.find((find) => find.id === id);
+      elem.name = name;
+    },
+    removeChannel(state, action) {
+      console.log(action.payload);
+      const newList = state.list.filter((elem) => elem.id !== action.payload.id);
+      state.list = newList;
+    },
   },
 });
 
-export const { addChannel, setChannels, setActive } = channelsSlice.actions;
+export const {
+  addChannel, setChannels, setActive, renameChannel, removeChannel,
+} = channelsSlice.actions;
 export default channelsSlice.reducer;

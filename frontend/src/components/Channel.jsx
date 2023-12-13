@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useTranslation } from 'react-i18next';
 import { setActive } from '../slices/channelsSlice';
+import { setActiveModal, setActiveElementId } from '../slices/modalSlice';
 
 const Channel = ({ children, id, removable }) => {
   const { t } = useTranslation();
@@ -34,6 +35,16 @@ const Channel = ({ children, id, removable }) => {
 
   const variant = isActive ? 'secondary' : '';
 
+  const handleRename = () => {
+    dispatch(setActiveElementId(id));
+    dispatch(setActiveModal('rename'));
+  };
+
+  const handleRemove = () => {
+    dispatch(setActiveElementId(id));
+    dispatch(setActiveModal('remove'));
+  };
+
   return (
     <li className="nav-item w-100">
       <Dropdown as={ButtonGroup} className="d-flex">
@@ -45,8 +56,8 @@ const Channel = ({ children, id, removable }) => {
         <Dropdown.Toggle split variant={variant} id="dropdown-split-basic" className="flex-grow-0" />
 
         <Dropdown.Menu>
-          <Dropdown.Item>{t('delete')}</Dropdown.Item>
-          <Dropdown.Item>{t('rename')}</Dropdown.Item>
+          <Dropdown.Item onClick={handleRemove}>{t('delete')}</Dropdown.Item>
+          <Dropdown.Item onClick={handleRename}>{t('rename')}</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </li>

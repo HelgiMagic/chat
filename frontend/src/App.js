@@ -12,10 +12,16 @@ import SignUpPage from './components/SignUpPage';
 import LoginContext from './contexts/loginContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addMessage } from './slices/messagesSlice';
-import { addChannel } from './slices/channelsSlice';
+import {
+  addChannel,
+  renameChannel,
+  removeChannel,
+  setActive,
+} from './slices/channelsSlice';
 import socket from './socketStarter';
 import './i18next.js';
 import 'react-toastify/dist/ReactToastify.css';
+import MyModal from './components/modals/Modal.jsx';
 
 const setToken = (value) => localStorage.setItem('loginToken', value);
 
@@ -44,9 +50,14 @@ const LoginProvider = ({ children }) => {
   const setUsername = (value) => localStorage.setItem('username', value);
 
   return (
-    <LoginContext.Provider value={{
-      token, setToken, getToken, username, setUsername,
-    }}
+    <LoginContext.Provider
+      value={{
+        token,
+        setToken,
+        getToken,
+        username,
+        setUsername,
+      }}
     >
       {children}
     </LoginContext.Provider>
@@ -64,6 +75,17 @@ const SocketWrapper = () => {
   socket.on('newChannel', (payload) => {
     console.log(payload); // { id: 6, name: "new channel", removable: true }
     dispatch(addChannel(payload));
+    dispatch(setActive(payload.id));
+  });
+
+  socket.on('renameChannel', (payload) => {
+    console.log(payload); // { id: 7, name: "new name channel", removable: true }
+    dispatch(renameChannel(payload));
+  });
+
+  socket.on('removeChannel', (payload) => {
+    console.log(payload); // { id: 6 };
+    dispatch(removeChannel(payload));
   });
 
   return null;
@@ -86,6 +108,7 @@ const App = () => (
             <ExitButton />
           </div>
         </nav>
+        <MyModal />
         <SocketWrapper />
         <ToastContainer />
         <BrowserRouter>
