@@ -114,8 +114,13 @@
   flex-grow: 1;
 }
 
-.invalid-feedback {
+.invalid-feedback, .invalid-tooltip {
   display: block !important;
+}
+
+.relative {
+  position: relative;
+  width: 100%;
 }
 
 @media (max-width: 1400px) {

@@ -8,8 +8,8 @@ import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 
 const validationSchema = yup.object({
-  login: yup.string().min(3, 'Минимум 3 буквы').max(50, 'Максимум 50 букв'),
-  password: yup.string().min(3, 'Минимум 3 буквы'),
+  login: yup.string().min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов'),
+  password: yup.string(),
 });
 
 const LoginPage = () => {
