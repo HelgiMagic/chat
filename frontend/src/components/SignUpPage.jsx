@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import React, { useContext, useState } from 'react';
@@ -74,32 +75,44 @@ const SignUpPage = () => {
                 console.log(errors.login);
                 return (
                   <Form className="login__form">
-                    <div className="relative">
+                    <div className="form-floating">
                       <Field
                         name="login"
+                        id="login"
                         placeholder={t('yourName')}
                         className="form-control"
                       />
+                      <label className="form-label" htmlFor="login">
+                        Имя пользователя
+                      </label>
                       {errors.login && touched.login ? (
                         <div className="invalid-tooltip">{errors.login}</div>
                       ) : null}
                     </div>
-                    <div className="relative">
+                    <div className="form-floating">
                       <Field
                         name="password"
+                        id="password"
                         placeholder={t('yourPassword')}
                         className="form-control"
                       />
+                      <label className="form-label" htmlFor="password">
+                        Пароль
+                      </label>
                       {errors.password && touched.password ? (
                         <div className="invalid-tooltip">{errors.password}</div>
                       ) : null}
                     </div>
-                    <div className="relative">
+                    <div className="form-floating">
                       <Field
                         name="confirmPassword"
+                        id="confirmPassword"
                         placeholder={t('passwordConfirmation')}
                         className="form-control"
                       />
+                      <label className="form-label" htmlFor="confirmPassword">
+                        Подтвердите пароль
+                      </label>
                       {errors.confirmPassword && touched.confirmPassword ? (
                         <div className="invalid-tooltip">
                           {errors.confirmPassword}
