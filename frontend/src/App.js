@@ -35,7 +35,7 @@ const token = localStorage.getItem('loginToken');
 const ExitButton = () => {
   const { t } = useTranslation('');
 
-  if (token.length < 1) return null;
+  if (!token) return null;
 
   return (
     <button type="button" className="btn btn-primary" onClick={handleClick}>
