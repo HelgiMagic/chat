@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import React, { useContext, useState } from 'react';
@@ -37,7 +38,7 @@ const LoginPage = () => {
     } catch (e) {
       console.log(e);
       if (e.message === 'Network Error') toast.error(t('networkError'));
-      else setError(<div className="invalid-feedback">{t('invalidName')}</div>);
+      else setError(t('invalidName'));
     }
   };
 
@@ -57,23 +58,40 @@ const LoginPage = () => {
             >
               {({ errors, touched }) => (
                 <Form className="login__form">
-                  <Field
-                    name="login"
-                    placeholder={t('yourName')}
-                    className="form-control"
-                  />
-                  {errors.login && touched.login ? (
-                    <div className="invalid-feedback">{errors.login}</div>
+                  <div className="form-floating">
+                    <Field
+                      name="login"
+                      id="login"
+                      placeholder={t('yourName')}
+                      className="form-control"
+                    />
+                    <label className="form-label" htmlFor="login">
+                      Ваш ник
+                    </label>
+                    {errors.login && touched.login ? (
+                      <div className="invalid-tooltip">{errors.login}</div>
+                    ) : null}
+                  </div>
+
+                  <div className="form-floating">
+                    <Field
+                      name="password"
+                      id="password"
+                      placeholder={t('yourPassword')}
+                      className="form-control"
+                    />
+                    <label className="form-label" htmlFor="password">
+                      Пароль
+                    </label>
+                    {errors.password && touched.password ? (
+                      <div className="invalid-tooltip">{errors.password}</div>
+                    ) : null}
+                  </div>
+
+                  {error ? (
+                    <div className="invalid-feedback">{error}</div>
                   ) : null}
-                  <Field
-                    name="password"
-                    placeholder={t('yourPassword')}
-                    className="form-control"
-                  />
-                  {errors.password && touched.password ? (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  ) : null}
-                  {error}
+
                   <button type="submit" className="btn btn-outline-primary">
                     {t('enter')}
                   </button>
