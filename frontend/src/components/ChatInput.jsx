@@ -15,7 +15,7 @@ const ChatInput = ({ username }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     console.log('message sending');
-    sendMessage(value, activeChannel, username, setValue, t);
+    sendMessage(filter.clean(value), activeChannel, username, setValue, t);
   };
 
   const rus = filter.getDictionary('ru');
