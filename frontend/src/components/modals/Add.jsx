@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-autofocus */
 import { useTranslation } from 'react-i18next';
 import { Modal } from 'react-bootstrap';
@@ -49,7 +50,8 @@ const Add = () => {
         >
           {({ errors, touched }) => (
             <Form>
-              <Field name="channelName" className="form-control mb-2" autoFocus />
+              <Field name="channelName" id="channelName" className="form-control mb-2" autoFocus />
+              <label className="visually-hidden" htmlFor="channelName">Имя канала</label>
               {errors.channelName && touched.channelName ? (
                 <div className="invalid-feedback">{errors.channelName}</div>
               ) : null}
