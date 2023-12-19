@@ -53,7 +53,9 @@ const Channel = ({ children, id, removable }) => {
           {children}
         </Button>
 
-        <Dropdown.Toggle split variant={variant} id="dropdown-split-basic" className="flex-grow-0" />
+        <Dropdown.Toggle split variant={variant} className="flex-grow-0">
+          <span className="visually-hidden">Управление каналом</span>
+        </Dropdown.Toggle>
 
         <Dropdown.Menu>
           <Dropdown.Item onClick={handleRemove}>{t('delete')}</Dropdown.Item>
