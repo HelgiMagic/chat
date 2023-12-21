@@ -2,13 +2,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  list: [{
-    body: 'proverka', id: 1, channelId: 1, username: 'admin',
-  }],
+  list: [],
 };
 
 const messagesSlice = createSlice({
-  name: 'comments',
+  name: 'messages',
   initialState,
   reducers: {
     setMessages(state, action) {

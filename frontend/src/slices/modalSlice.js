@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const modalSlice = createSlice({
-  name: 'comments',
+  name: 'modal',
   initialState,
   reducers: {
     setActiveModal(state, action) {

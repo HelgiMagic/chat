@@ -17,10 +17,10 @@ const Rename = () => {
   const validationSchema = yup.object({
     channelName: yup
       .string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(names, 'Должно быть уникальным')
-      .required('Обязательное поле'),
+      .min(3, t('from3To20'))
+      .max(20, t('from3To20'))
+      .notOneOf(names, t('shouldBeUnique'))
+      .required(t('required')),
   });
 
   const { name } = list.find(({ id }) => id === activeElementId);

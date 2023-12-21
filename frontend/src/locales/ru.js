@@ -1,12 +1,14 @@
 export default {
   translation: {
+    projectName: 'Hexlet Chat',
     enterMessage: 'Введите сообщение...',
     delete: 'Удалить',
     rename: 'Переименовать',
     invalidName: 'Неверные имя пользователя или пароль',
     enter: 'Войти',
     yourName: 'Ваш ник',
-    yourPassword: 'Ваш пароль',
+    userName: 'Имя пользователя',
+    yourPassword: 'Пароль',
     noAccount: 'Нет аккаунта?',
     register: 'Зарегистрироваться',
     registration: 'Регистрация',
@@ -25,5 +27,11 @@ export default {
     deleteChannel: 'Удалить канал',
     cancel: 'Отменить',
     send: 'Отправить',
+    from3To20: 'От 3 до 20 символов',
+    atLeast6: 'Не менее 6 символов',
+    shouldBeUnique: 'Должно быть уникальным',
+    passwordsShouldBeEqual: 'Пароли должны совпадать',
+    passwordRequired: 'Подтверждение пароля необходимо',
+    required: 'Обязательное поле',
   },
 };

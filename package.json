@@ -2,7 +2,6 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/HelgiMagic/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/HelgiMagic/frontend-project-12/actions)",
-  "main": "index.js",
   "type": "module",
   "engines": {
     "node": ">=18.18.0"
@@ -10,8 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx start-server -s ./frontend/build",
-    "postinstall": "cd frontend && npm ci",
-    "build": "cd frontend && npm run build"
+    "postinstall": "npm ci --prefix frontend",
+    "build": "npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",

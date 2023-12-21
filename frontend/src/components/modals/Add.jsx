@@ -7,6 +7,7 @@ import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { createChannel } from '../../socketWrapper';
 import { setActiveModal } from '../../slices/modalSlice';
+import { setActive } from '../../slices/channelsSlice';
 
 const Add = () => {
   const { t } = useTranslation();
@@ -17,10 +18,10 @@ const Add = () => {
   const validationSchema = yup.object({
     channelName: yup
       .string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(names, 'Должно быть уникальным')
-      .required('Обязательное поле'),
+      .min(3, t('from3To20'))
+      .max(20, t('from3To20'))
+      .notOneOf(names, t('shouldBeUnique'))
+      .required(t('required')),
   });
 
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Add = () => {
 
   const handleSubmit = ({ channelName }) => {
     createChannel(channelName, t);
+    dispatch(setActive());
     handleClose();
   };
 

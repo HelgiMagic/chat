@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter, Routes, Route,
+} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import { Provider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
+import { useContext } from 'react';
 import LoginPage from './components/LoginPage';
 import MainPage from './components/MainPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -22,30 +25,12 @@ import socket from './socketStarter';
 import './i18next.js';
 import 'react-toastify/dist/ReactToastify.css';
 import MyModal from './components/modals/Modal.jsx';
-
-const setToken = (value) => localStorage.setItem('loginToken', value);
-
-const handleClick = () => {
-  setToken('');
-  window.location.href = '/login';
-};
-
-const token = localStorage.getItem('loginToken');
-
-const ExitButton = () => {
-  const { t } = useTranslation('');
-
-  if (!token) return null;
-
-  return (
-    <button type="button" className="btn btn-primary" onClick={handleClick}>
-      {t('exit')}
-    </button>
-  );
-};
+// import routes from './routes.js';
 
 const LoginProvider = ({ children }) => {
   const getToken = () => localStorage.getItem('loginToken');
+  const token = localStorage.getItem('loginToken');
+  const setToken = (value) => localStorage.setItem('loginToken', value);
   const username = localStorage.getItem('username');
   const setUsername = (value) => localStorage.setItem('username', value);
 
@@ -64,6 +49,26 @@ const LoginProvider = ({ children }) => {
   );
 };
 
+const ExitButton = () => {
+  const { t } = useTranslation();
+  const { token, setToken } = useContext(LoginContext);
+  // const navigate = useNavigate();
+
+  if (!token) return null;
+
+  const handleClick = () => {
+    setToken('');
+    window.location.href = '/login';
+    // navigate(routes.loginPage());
+  };
+
+  return (
+    <button type="button" className="btn btn-primary" onClick={handleClick}>
+      {t('exit')}
+    </button>
+  );
+};
+
 const SocketWrapper = () => {
   const dispatch = useDispatch();
 
@@ -75,7 +80,6 @@ const SocketWrapper = () => {
   socket.on('newChannel', (payload) => {
     console.log(payload); // { id: 6, name: "new channel", removable: true }
     dispatch(addChannel(payload));
-    dispatch(setActive(payload.id));
   });
 
   socket.on('renameChannel', (payload) => {
@@ -83,9 +87,14 @@ const SocketWrapper = () => {
     dispatch(renameChannel(payload));
   });
 
-  socket.on('removeChannel', (payload) => {
-    console.log(payload); // { id: 6 };
-    dispatch(removeChannel(payload));
+  const activeId = useSelector((state) => (state.channels.active));
+
+  socket.on('removeChannel', (id) => {
+    console.log(id); // { id: 6 };
+    dispatch(removeChannel(id));
+    if (activeId === id) {
+      dispatch(setActive(1));
+    }
   });
 
   return null;
@@ -96,32 +105,35 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
-const App = () => (
-  <Provider config={rollbarConfig}>
-    <ErrorBoundary>
-      <LoginProvider>
-        <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-          <div className="container">
-            <a className="navbar-brand" href="/">
-              Hexlet Chat
-            </a>
-            <ExitButton />
-          </div>
-        </nav>
-        <MyModal />
-        <SocketWrapper />
-        <ToastContainer />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="signup" element={<SignUpPage />} />
-            <Route path="404" element={<NotFoundPage />} />
-          </Routes>
-        </BrowserRouter>
-      </LoginProvider>
-    </ErrorBoundary>
-  </Provider>
-);
+const App = () => {
+  const { t } = useTranslation();
+  return (
+    <Provider config={rollbarConfig}>
+      <ErrorBoundary>
+        <LoginProvider>
+          <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+            <div className="container">
+              <a className="navbar-brand" href="/">
+                {t('projectName')}
+              </a>
+              <ExitButton />
+            </div>
+          </nav>
+          <MyModal />
+          <SocketWrapper />
+          <ToastContainer />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="signup" element={<SignUpPage />} />
+              <Route path="404" element={<NotFoundPage />} />
+            </Routes>
+          </BrowserRouter>
+        </LoginProvider>
+      </ErrorBoundary>
+    </Provider>
+  );
+};
 
 export default App;

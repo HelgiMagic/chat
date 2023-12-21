@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const channelsSlice = createSlice({
-  name: 'comments',
+  name: 'channels',
   initialState,
   reducers: {
     setChannels(state, action) {

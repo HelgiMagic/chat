@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
+import { toast } from 'react-toastify';
 import { sendMessage } from '../socketWrapper';
 
 const ChatInput = ({ username }) => {
@@ -15,13 +16,11 @@ const ChatInput = ({ username }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     console.log('message sending');
-    sendMessage(filter.clean(value), activeChannel, username, setValue, t);
+    sendMessage(filter.clean(value), activeChannel, username, (err) => {
+      if (!err) setValue('');
+      else toast.error(t('networkError'));
+    });
   };
-
-  const rus = filter.getDictionary('ru');
-  const eng = filter.getDictionary('eng');
-  filter.addDictionary('goyda', [...rus, ...eng]);
-  filter.loadDictionary('goyda');
 
   return (
     <div className="right-panel__input">

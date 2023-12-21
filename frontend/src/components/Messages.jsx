@@ -5,13 +5,13 @@ import Message from './Message';
 
 const Messages = () => {
   const { t } = useTranslation();
-  const { list } = useSelector((state) => state.messages);
   const { active, list: channelsList } = useSelector((state) => state.channels);
 
-  const activeChannel = channelsList.find((el) => el.id === active) || { name: 'undefined' };
-  console.log('file: Messages.jsx:10 || Messages || activeChannel:', activeChannel);
+  const activeMessages = useSelector((state) => state.messages.list
+    .filter(({ channelId }) => channelId === active));
 
-  const activeMessages = list.filter(({ channelId }) => channelId === active);
+  const activeChannel = channelsList.find((el) => el.id === active) || { name: 'undefined' };
+
   const messages = activeMessages.map(({
     body, id, username,
   }) => <Message key={id} name={username}>{body}</Message>);

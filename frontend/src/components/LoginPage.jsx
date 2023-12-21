@@ -8,17 +8,18 @@ import { toast } from 'react-toastify';
 import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 
-const validationSchema = yup.object({
-  login: yup.string().min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов'),
-  password: yup.string(),
-});
-
 const LoginPage = () => {
   const { t } = useTranslation();
   const { token, setToken, setUsername } = useContext(LoginContext);
   const [error, setError] = useState(null);
 
+  const validationSchema = yup.object({
+    login: yup.string().min(3, t('from3To20')).max(20, t('from3To20')),
+    password: yup.string(),
+  });
+
   console.log(token);
+
   const initValues = { login: '', password: '' };
 
   const handleSubmit = async ({ login, password }) => {
@@ -66,7 +67,7 @@ const LoginPage = () => {
                       className="form-control"
                     />
                     <label className="form-label" htmlFor="login">
-                      Ваш ник
+                      {t('yourName')}
                     </label>
                     {errors.login && touched.login ? (
                       <div className="invalid-tooltip">{errors.login}</div>
@@ -81,7 +82,7 @@ const LoginPage = () => {
                       className="form-control"
                     />
                     <label className="form-label" htmlFor="password">
-                      Пароль
+                      {t('yourPassword')}
                     </label>
                     {errors.password && touched.password ? (
                       <div className="invalid-tooltip">{errors.password}</div>

@@ -8,25 +8,28 @@ import { toast } from 'react-toastify';
 import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 
-const validationSchema = yup.object({
-  login: yup
-    .string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов'),
-  password: yup.string().min(6, 'Не менее 6 символов'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Пароли должны совпадать')
-    .required('Подтверждение пароля необходимо'),
-});
-
 const SignUpPage = () => {
   const { t } = useTranslation();
   const { token, setToken, setUsername } = useContext(LoginContext);
   const [error, setError] = useState(null);
 
   console.log(token);
+
   const initValues = { login: '', password: '', confirmPassword: '' };
+
+  const validationSchema = yup.object({
+    login: yup
+      .string()
+      .min(3, t('from3To20'))
+      .max(20, t('from3To20')),
+
+    password: yup.string().min(6, t('atLeast6')),
+
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], t('passwordsShouldBeEqual'))
+      .required(t('passwordRequired')),
+  });
 
   const handleSubmit = async ({ login, password }) => {
     try {
