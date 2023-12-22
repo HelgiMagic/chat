@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import './App.css';
 import {
-  BrowserRouter, Routes, Route,
+  BrowserRouter, Routes, Route, Navigate,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -52,14 +52,11 @@ const LoginProvider = ({ children }) => {
 const ExitButton = () => {
   const { t } = useTranslation();
   const { token, setToken } = useContext(LoginContext);
-  // const navigate = useNavigate();
 
   if (!token) return null;
 
   const handleClick = () => {
     setToken('');
-    window.location.href = '/login';
-    // navigate(routes.loginPage());
   };
 
   return (
@@ -105,6 +102,13 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
+const ProtectedRoute = () => {
+  const { token } = useContext(LoginContext);
+  if (!token) return <Navigate to="/login" />;
+
+  return <MainPage />;
+};
+
 const App = () => {
   const { t } = useTranslation();
   return (
@@ -124,7 +128,7 @@ const App = () => {
           <ToastContainer />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<MainPage />} />
+              <Route path="/" element={<ProtectedRoute />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignUpPage />} />
               <Route path="404" element={<NotFoundPage />} />

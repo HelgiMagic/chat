@@ -20,8 +20,6 @@ const MainPage = () => {
     dispatch(setActiveModal('add'));
   };
 
-  if (!token) window.location.href = '/login';
-
   useEffect(() => {
     const setData = async () => {
       const response = await axios.get(routes.getData(), {
