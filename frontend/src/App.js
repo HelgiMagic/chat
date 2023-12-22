@@ -25,7 +25,7 @@ import socket from './socketStarter';
 import './i18next.js';
 import 'react-toastify/dist/ReactToastify.css';
 import MyModal from './components/modals/Modal.jsx';
-// import routes from './routes.js';
+import routes from './routes.js';
 
 const LoginProvider = ({ children }) => {
   const getToken = () => localStorage.getItem('loginToken');
@@ -104,7 +104,7 @@ const rollbarConfig = {
 
 const ProtectedRoute = () => {
   const { token } = useContext(LoginContext);
-  if (!token) return <Navigate to="/login" />;
+  if (!token) return <Navigate to={routes.loginPage()} />;
 
   return <MainPage />;
 };
