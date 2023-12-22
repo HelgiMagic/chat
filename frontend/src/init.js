@@ -35,6 +35,29 @@ import LoginContext from './contexts/loginContext';
 
 import resources from './locales/index.js';
 import Navbar from './components/Navbar.jsx';
+import store from './slices/index.js';
+
+const LoginProvider = ({ children }) => {
+  const getToken = () => localStorage.getItem('loginToken');
+  const token = localStorage.getItem('loginToken');
+  const setToken = (value) => localStorage.setItem('loginToken', value);
+  const username = localStorage.getItem('username');
+  const setUsername = (value) => localStorage.setItem('username', value);
+
+  return (
+    <LoginContext.Provider
+      value={{
+        token,
+        setToken,
+        getToken,
+        username,
+        setUsername,
+      }}
+    >
+      {children}
+    </LoginContext.Provider>
+  );
+};
 
 const runApp = async () => {
   const rus = filter.getDictionary('ru');
@@ -54,60 +77,36 @@ const runApp = async () => {
       },
     });
 
-  const dispatch = useDispatch();
-
   const socket = io();
 
   socket.on('newMessage', (payload) => {
     console.log(payload); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
-    dispatch(addMessage(payload));
+    store.dispatch(addMessage(payload));
   });
 
   socket.on('newChannel', (payload) => {
     console.log(payload); // { id: 6, name: "new channel", removable: true }
-    dispatch(addChannel(payload));
+    store.dispatch(addChannel(payload));
   });
 
   socket.on('renameChannel', (payload) => {
     console.log(payload); // { id: 7, name: "new name channel", removable: true }
-    dispatch(renameChannel(payload));
+    store.dispatch(renameChannel(payload));
   });
 
   const activeId = useSelector((state) => (state.channels.active));
 
   socket.on('removeChannel', (id) => {
     console.log(id); // { id: 6 };
-    dispatch(removeChannel(id));
+    store.dispatch(removeChannel(id));
     if (activeId === id) {
-      dispatch(setActive(1));
+      store.dispatch(setActive(1));
     }
   });
 
   const rollbarConfig = {
     accessToken: 'a0701e36619448ba800781eb78b5f6d8',
     environment: 'testenv',
-  };
-
-  const LoginProvider = ({ children }) => {
-    const getToken = () => localStorage.getItem('loginToken');
-    const token = localStorage.getItem('loginToken');
-    const setToken = (value) => localStorage.setItem('loginToken', value);
-    const username = localStorage.getItem('username');
-    const setUsername = (value) => localStorage.setItem('username', value);
-
-    return (
-      <LoginContext.Provider
-        value={{
-          token,
-          setToken,
-          getToken,
-          username,
-          setUsername,
-        }}
-      >
-        {children}
-      </LoginContext.Provider>
-    );
   };
 
   const ProtectedRoute = () => {
@@ -117,7 +116,7 @@ const runApp = async () => {
     return <MainPage />;
   };
 
-  const App = () => (
+  return (
     <Provider config={rollbarConfig}>
       <ErrorBoundary>
         <LoginProvider>
@@ -138,8 +137,6 @@ const runApp = async () => {
       </ErrorBoundary>
     </Provider>
   );
-
-  return App;
 };
 
 export default runApp;

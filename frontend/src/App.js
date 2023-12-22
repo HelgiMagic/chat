@@ -1,5 +1,5 @@
 import runApp from './init';
 
-const App = runApp();
+const App = await runApp();
 
 export default App;
