@@ -35,7 +35,6 @@ const LoginPage = () => {
       setError(null);
       setToken(data.token);
       setUsername(login);
-      window.location.href = '/';
     } catch (e) {
       console.log(e);
       if (e.message === 'Network Error') toast.error(t('networkError'));

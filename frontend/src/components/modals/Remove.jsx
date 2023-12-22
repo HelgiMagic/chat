@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { removeChannel } from '../../socketWrapper';
 import { setActiveModal } from '../../slices/modalSlice';
 
@@ -16,8 +17,12 @@ const Remove = () => {
   const handleClick = (e) => {
     e.preventDefault();
 
-    removeChannel(activeElementId, t);
-    handleClose();
+    removeChannel(activeElementId)
+      .then(() => {
+        toast.success(t('channelRemoved'));
+        handleClose();
+      })
+      .catch(() => toast.error(t('networkError')));
   };
 
   return (

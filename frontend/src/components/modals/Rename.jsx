@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { renameChannel } from '../../socketWrapper';
 import { setActiveModal } from '../../slices/modalSlice';
 
@@ -32,8 +33,12 @@ const Rename = () => {
   };
 
   const handleSubmit = ({ channelName }) => {
-    renameChannel(activeElementId, channelName, t);
-    handleClose();
+    renameChannel(activeElementId, channelName)
+      .then(() => {
+        toast.success(t('channelRenamed'));
+        handleClose();
+      })
+      .catch(() => toast.error(t('networkError')));
   };
 
   const initValues = { channelName: name };

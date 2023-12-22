@@ -16,10 +16,9 @@ const ChatInput = ({ username }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     console.log('message sending');
-    sendMessage(filter.clean(value), activeChannel, username, (err) => {
-      if (!err) setValue('');
-      else toast.error(t('networkError'));
-    });
+    sendMessage(filter.clean(value), activeChannel, username)
+      .then(() => setValue(''))
+      .catch(() => toast.error(t('networkError')));
   };
 
   return (

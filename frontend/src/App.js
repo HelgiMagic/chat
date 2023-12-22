@@ -111,6 +111,7 @@ const ProtectedRoute = () => {
 
 const App = () => {
   const { t } = useTranslation();
+
   return (
     <Provider config={rollbarConfig}>
       <ErrorBoundary>

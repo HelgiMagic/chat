@@ -5,6 +5,7 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { createChannel } from '../../socketWrapper';
 import { setActiveModal } from '../../slices/modalSlice';
 import { setActive } from '../../slices/channelsSlice';
@@ -30,10 +31,17 @@ const Add = () => {
     dispatch(setActiveModal(null));
   };
 
-  const handleSubmit = ({ channelName }) => {
-    createChannel(channelName, t);
-    dispatch(setActive());
-    handleClose();
+  const handleSubmit = async ({ channelName }) => {
+    try {
+      const response = await createChannel(channelName);
+
+      dispatch(setActive(response.data.id));
+      toast.success(t('channelCreated'));
+
+      handleClose();
+    } catch (e) {
+      toast.error(t('networkError'));
+    }
   };
 
   const initValues = { channelName: '' };
