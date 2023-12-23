@@ -17,8 +17,9 @@ git clone https://github.com/HelgiMagic/frontend-project-12.git
 ```
 npm install
 ```
-4. Write the following command to start the server.
+4. Write the following commands to start the server and create an application build.
 ```
+npm run build
 npm start
 ```
 5. Enter localhost:5001 in the address bar of your browser. Enjoy!

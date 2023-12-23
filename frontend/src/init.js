@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import filter from 'leo-profanity';
 import i18next from 'i18next';
@@ -17,7 +17,7 @@ import {
   addChannel,
   renameChannel,
   removeChannel,
-  setActive,
+  // setActive,
 } from './slices/channelsSlice';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -94,14 +94,14 @@ const runApp = async () => {
     store.dispatch(renameChannel(payload));
   });
 
-  const activeId = useSelector((state) => (state.channels.active));
+  // const activeId = useSelector((state) => (state.channels.active));
 
   socket.on('removeChannel', (id) => {
     console.log(id); // { id: 6 };
     store.dispatch(removeChannel(id));
-    if (activeId === id) {
-      store.dispatch(setActive(1));
-    }
+    // if (activeId === id) {
+    //   store.dispatch(setActive(1));
+    // }
   });
 
   const rollbarConfig = {

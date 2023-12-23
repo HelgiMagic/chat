@@ -22,17 +22,21 @@ const MainPage = () => {
 
   useEffect(() => {
     const setData = async () => {
-      const response = await axios.get(routes.getData(), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        const response = await axios.get(routes.getData(), {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      console.log(response);
-      const { channels, messages, currentChannelId } = response.data;
-      dispatch(setChannels(channels));
-      dispatch(setActive(currentChannelId));
-      dispatch(setMessages(messages));
+        console.log(response);
+        const { channels, messages, currentChannelId } = response.data;
+        dispatch(setChannels(channels));
+        dispatch(setActive(currentChannelId));
+        dispatch(setMessages(messages));
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     setData();
