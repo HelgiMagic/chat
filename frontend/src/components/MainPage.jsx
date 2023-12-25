@@ -14,6 +14,7 @@ import { setActiveModal } from '../slices/modalSlice';
 const MainPage = () => {
   const { t } = useTranslation();
   const { token, username } = useContext(LoginContext);
+  console.log(token);
   const dispatch = useDispatch();
 
   const handleAddChannel = () => {
