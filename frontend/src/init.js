@@ -6,7 +6,7 @@ import filter from 'leo-profanity';
 import i18next from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
 import {
-  BrowserRouter, Routes, Route, Navigate,
+  BrowserRouter, Routes, Route, Navigate, Outlet,
 } from 'react-router-dom';
 import { Provider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
 
@@ -17,7 +17,6 @@ import {
   addChannel,
   renameChannel,
   removeChannel,
-  // setActive,
 } from './slices/channelsSlice';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -61,6 +60,16 @@ const LoginProvider = ({ children }) => {
   );
 };
 
+const ProtectedRoute = () => {
+  const { token } = useContext(LoginContext);
+  console.log(token);
+
+  return token ? <Outlet /> : <Navigate to={routes.loginPage()} />;
+
+  // if (!token) return <Navigate to={routes.loginPage()} />;
+  // return <MainPage />;
+};
+
 const runApp = async () => {
   const rus = filter.getDictionary('ru');
   const eng = filter.getDictionary('eng');
@@ -96,27 +105,14 @@ const runApp = async () => {
     store.dispatch(renameChannel(payload));
   });
 
-  // const activeId = useSelector((state) => (state.channels.active));
-
   socket.on('removeChannel', (id) => {
     console.log(id); // { id: 6 };
     store.dispatch(removeChannel(id));
-    // if (activeId === id) {
-    //   store.dispatch(setActive(1));
-    // }
   });
 
   const rollbarConfig = {
     accessToken: 'a0701e36619448ba800781eb78b5f6d8',
     environment: 'testenv',
-  };
-
-  const ProtectedRoute = () => {
-    const { token } = useContext(LoginContext);
-    console.log(token);
-    if (!token) return <Navigate to={routes.loginPage()} />;
-
-    return <MainPage />;
   };
 
   return (
@@ -129,7 +125,9 @@ const runApp = async () => {
             <ToastContainer />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<ProtectedRoute />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/" element={<MainPage />} />
+                </Route>
                 <Route path="login" element={<LoginPage />} />
                 <Route path="signup" element={<SignUpPage />} />
                 <Route path="404" element={<NotFoundPage />} />

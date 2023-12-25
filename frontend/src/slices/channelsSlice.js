@@ -29,6 +29,8 @@ const channelsSlice = createSlice({
       console.log(action.payload);
       const newList = state.list.filter((elem) => elem.id !== action.payload.id);
       state.list = newList;
+
+      if (state.active === action.payload.id) state.active = 1;
     },
   },
 });
