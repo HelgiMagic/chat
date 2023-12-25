@@ -37,10 +37,16 @@ import Navbar from './components/Navbar.jsx';
 import store from './slices/index.js';
 
 const LoginProvider = ({ children }) => {
-  // const [login, setLogin] = useState('null');
+  const [login, setLogin] = useState(false);
+
   const getToken = () => localStorage.getItem('loginToken');
   const token = localStorage.getItem('loginToken');
-  const setToken = (value) => localStorage.setItem('loginToken', value);
+  const setToken = (value) => {
+    localStorage.setItem('loginToken', value);
+
+    if (value.length > 0) setLogin(true);
+    else setLogin(false);
+  };
 
   const username = localStorage.getItem('username');
   const setUsername = (value) => localStorage.setItem('username', value);
@@ -48,6 +54,7 @@ const LoginProvider = ({ children }) => {
   return (
     <LoginContext.Provider
       value={{
+        login,
         token,
         setToken,
         getToken,
@@ -61,10 +68,10 @@ const LoginProvider = ({ children }) => {
 };
 
 const ProtectedRoute = () => {
-  const { token } = useContext(LoginContext);
-  console.log(token);
+  const { login } = useContext(LoginContext);
+  console.log(login);
 
-  return token ? <Outlet /> : <Navigate to={routes.loginPage()} />;
+  return login ? <Outlet /> : <Navigate to={routes.loginPage()} />;
 
   // if (!token) return <Navigate to={routes.loginPage()} />;
   // return <MainPage />;
