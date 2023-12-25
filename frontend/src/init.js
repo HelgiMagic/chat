@@ -11,7 +11,7 @@ import {
 import { Provider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
 
 import { ToastContainer } from 'react-toastify';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { addMessage } from './slices/messagesSlice';
 import {
   addChannel,
@@ -38,15 +38,22 @@ import Navbar from './components/Navbar.jsx';
 import store from './slices/index.js';
 
 const LoginProvider = ({ children }) => {
+  const [login, setLogin] = useState('null');
   const getToken = () => localStorage.getItem('loginToken');
   const token = localStorage.getItem('loginToken');
-  const setToken = (value) => localStorage.setItem('loginToken', value);
+  const setToken = (value) => {
+    localStorage.setItem('loginToken', value);
+    const loginValue = value.length > 0 ? true : null;
+    setLogin(loginValue);
+  };
+
   const username = localStorage.getItem('username');
   const setUsername = (value) => localStorage.setItem('username', value);
 
   return (
     <LoginContext.Provider
       value={{
+        login,
         token,
         setToken,
         getToken,
@@ -110,8 +117,9 @@ const runApp = async () => {
   };
 
   const ProtectedRoute = () => {
-    const { token } = useContext(LoginContext);
-    if (!token) return <Navigate to={routes.loginPage()} />;
+    const { login } = useContext(LoginContext);
+    console.log(login);
+    if (!login) return <Navigate to={routes.loginPage()} />;
 
     return <MainPage />;
   };
