@@ -1,5 +1,5 @@
-import runApp from './init';
+// import runApp from './init';
 
-// const App = runApp();
+// // const App = runApp();
 
-export default App;
+// export default App;

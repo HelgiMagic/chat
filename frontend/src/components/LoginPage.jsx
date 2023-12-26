@@ -5,10 +5,12 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import LoginContext from '../contexts/loginContext';
 import routes from '../routes';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const { token, setToken, setUsername } = useContext(LoginContext);
   const [error, setError] = useState(null);
@@ -35,6 +37,7 @@ const LoginPage = () => {
       setError(null);
       setToken(data.token);
       setUsername(login);
+      navigate('/');
     } catch (e) {
       console.log(e);
       if (e.message === 'Network Error') toast.error(t('networkError'));
