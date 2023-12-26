@@ -103,6 +103,9 @@ const runApp = async () => {
   socket.on('newMessage', (payload) => {
     console.log(payload); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
     store.dispatch(addMessage(payload));
+
+    const messagesEnd = document.querySelector('.messages-end');
+    messagesEnd.current?.scrollIntoView({ behavior: 'smooth' });
   });
 
   socket.on('newChannel', (payload) => {
