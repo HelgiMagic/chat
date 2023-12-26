@@ -37,10 +37,13 @@ import Navbar from './components/Navbar.jsx';
 import store from './slices/index.js';
 
 const LoginProvider = ({ children }) => {
-  const [login, setLogin] = useState(false);
-
   const getToken = () => localStorage.getItem('loginToken');
   const token = localStorage.getItem('loginToken');
+
+  const loginState = !!token;
+  console.log(loginState);
+  const [login, setLogin] = useState(loginState);
+
   const setToken = (value) => {
     localStorage.setItem('loginToken', value);
 
