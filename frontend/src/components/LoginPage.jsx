@@ -12,15 +12,13 @@ import routes from '../routes';
 const LoginPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { token, setToken, setUsername } = useContext(LoginContext);
+  const { logIn } = useContext(LoginContext);
   const [error, setError] = useState(null);
 
   const validationSchema = yup.object({
     login: yup.string().min(3, t('from3To20')).max(20, t('from3To20')),
     password: yup.string(),
   });
-
-  console.log(token);
 
   const initValues = { login: '', password: '' };
 
@@ -30,13 +28,12 @@ const LoginPage = () => {
         username: login,
         password,
       });
-      console.log(response.data);
+
       const { data } = response;
 
-      console.log(data);
       setError(null);
-      setToken(data.token);
-      setUsername(login);
+
+      logIn(data.token, login);
       navigate('/');
     } catch (e) {
       console.log(e);

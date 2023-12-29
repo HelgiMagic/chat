@@ -11,7 +11,7 @@ import routes from '../routes';
 
 const SignUpPage = () => {
   const { t } = useTranslation();
-  const { setToken, setUsername } = useContext(LoginContext);
+  const { logIn } = useContext(LoginContext);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -43,8 +43,9 @@ const SignUpPage = () => {
 
       console.log(data);
       setError(null);
-      setToken(data.token);
-      setUsername(login);
+
+      logIn(data.token, logIn);
+
       navigate('/');
     } catch (e) {
       console.log(e);

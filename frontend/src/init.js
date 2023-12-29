@@ -37,32 +37,36 @@ import Navbar from './components/Navbar.jsx';
 import store from './slices/index.js';
 
 const LoginProvider = ({ children }) => {
-  const getToken = () => localStorage.getItem('loginToken');
   const token = localStorage.getItem('loginToken');
 
-  const loginState = !!token;
-  console.log(loginState);
-  const [login, setLogin] = useState(loginState);
+  const loginState = Boolean(token);
 
-  const setToken = (value) => {
-    localStorage.setItem('loginToken', value);
+  const [loggedIn, setLoggedIn] = useState(loginState);
 
-    if (value.length > 0) setLogin(true);
-    else setLogin(false);
+  const logIn = (tokenValue, username) => {
+    localStorage.setItem('loginToken', tokenValue);
+
+    localStorage.setItem('username', username);
+
+    if (tokenValue.length > 0) setLoggedIn(true);
+    else setLoggedIn(false);
+  };
+
+  const logOut = () => {
+    localStorage.setItem('loginToken', '');
+    localStorage.setItem('username', '');
   };
 
   const username = localStorage.getItem('username');
-  const setUsername = (value) => localStorage.setItem('username', value);
 
   return (
     <LoginContext.Provider
       value={{
-        login,
         token,
-        setToken,
-        getToken,
         username,
-        setUsername,
+        loggedIn,
+        logIn,
+        logOut,
       }}
     >
       {children}
@@ -71,13 +75,10 @@ const LoginProvider = ({ children }) => {
 };
 
 const ProtectedRoute = () => {
-  const { login } = useContext(LoginContext);
-  console.log(login);
+  const { loggedIn } = useContext(LoginContext);
+  console.log(loggedIn);
 
-  return login ? <Outlet /> : <Navigate to={routes.loginPage()} />;
-
-  // if (!token) return <Navigate to={routes.loginPage()} />;
-  // return <MainPage />;
+  return loggedIn ? <Outlet /> : <Navigate to={routes.loginPage()} />;
 };
 
 const runApp = async () => {
@@ -103,9 +104,6 @@ const runApp = async () => {
   socket.on('newMessage', (payload) => {
     console.log(payload); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
     store.dispatch(addMessage(payload));
-
-    const messagesEnd = document.querySelector('.messages-end');
-    messagesEnd.current?.scrollIntoView({ behavior: 'smooth' });
   });
 
   socket.on('newChannel', (payload) => {

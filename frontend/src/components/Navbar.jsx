@@ -4,12 +4,12 @@ import loginContext from '../contexts/loginContext';
 
 const ExitButton = () => {
   const { t } = useTranslation();
-  const { token, setToken } = useContext(loginContext);
+  const { token, logOut } = useContext(loginContext);
 
   if (!token) return null;
 
   const handleClick = () => {
-    setToken('');
+    logOut();
   };
 
   return (
