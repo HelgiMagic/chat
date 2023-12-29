@@ -1,4 +1,6 @@
-import socket from './socketStarter';
+import { io } from 'socket.io-client';
+
+const socket = io();
 
 export const sendMessage = (body, channelId, username) => new Promise((resolve, reject) => {
   socket
@@ -11,10 +13,7 @@ export const sendMessage = (body, channelId, username) => new Promise((resolve, 
 
 export const createChannel = (name) => new Promise((resolve, reject) => {
   socket.timeout(5000).emit('newChannel', { name }, (err, response) => {
-    if (err) {
-      return reject(err);
-    }
-
+    if (err) return reject(err);
     return (resolve(response));
   });
 });

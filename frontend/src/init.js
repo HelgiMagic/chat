@@ -47,13 +47,13 @@ const LoginProvider = ({ children }) => {
     localStorage.setItem('loginToken', tokenValue);
 
     localStorage.setItem('username', username);
-
-    if (tokenValue.length > 0) setLoggedIn(true);
-    else setLoggedIn(false);
+    setLoggedIn(true);
   };
 
   const logOut = () => {
     localStorage.setItem('loginToken', '');
+    setLoggedIn(false);
+
     localStorage.setItem('username', '');
   };
 
