@@ -1,5 +1,5 @@
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/HelgiMagic/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/HelgiMagic/frontend-project-12/actions)
+[![Actions Status](https://github.com/HelgiMagic/chat/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/HelgiMagic/chat/actions)
 
 ### What is it?
 
@@ -11,7 +11,7 @@ simple online chat with channels for communication:
 1. Install [node.js](https://nodejs.org/). Use the instructions on the website.
 2. Copy the repository to your computer using git clone:
 ```
-git clone https://github.com/HelgiMagic/frontend-project-12.git
+git clone https://github.com/HelgiMagic/chat.git
 ```
 3. To start using this project, copy and paste the following command into the command line. This command will install all the necessary modules for the project to work.
 ```
@@ -33,4 +33,4 @@ Enter https://chat-mw12.onrender.com/ in the address bar of your browser. Enjoy!
 Creating different users, two basic channels: general and random. Creating and deleting channels. Convenient online correspondence.
 
 ### Examples of usage
-![image](https://github.com/HelgiMagic/frontend-project-12/assets/113669521/1cd76b09-726d-4c35-8afb-f0f255845762)
+![image](https://github.com/HelgiMagic/chat/assets/113669521/1cd76b09-726d-4c35-8afb-f0f255845762)
